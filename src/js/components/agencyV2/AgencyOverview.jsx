@@ -157,16 +157,14 @@ const AgencyOverview = ({
             <div className="agency-overview">
                 <div className="agency-overview__top">
                     <div className="agency-overview__title">
-                        <h3>
-                            {name}
-                            {covidDefCodes.length &&
-                                <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
-                                    <span className="covid-spending-flag">
-                                        COVID-19 Spending
-                                    </span>
-                                </TooltipWrapper>
-                            }
-                        </h3>
+                        <h3>{name}</h3>
+                        {name && covidDefCodes.length &&
+                            <TooltipWrapper className="agency-overview__tooltip covid-19-flag" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+                                <span className="covid-spending-flag">
+                                    COVID-19 Spending
+                                </span>
+                            </TooltipWrapper>
+                        }
                         <div className="agency-overview__sub-agencies">Includes {subtierCount} awarding sub-agencies</div>
                     </div>
                     {image}
