@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { snakeCase } from 'lodash';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useHistory } from 'react-router-dom';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -35,6 +36,7 @@ import {
     dataDisclaimerHeight
 } from 'dataMapping/covid19/covid19';
 import { fetchOverview, fetchAwardAmounts } from 'helpers/disasterHelper';
+import { useQueryParams } from 'helpers/queryParams';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { setOverview, setTotals } from 'redux/actions/covid19/covid19Actions';
 import { showModal } from 'redux/actions/modal/modalActions';
@@ -47,7 +49,12 @@ import SidebarFooter from '../../components/covid19/SidebarFooter';
 
 require('pages/covid19/index.scss');
 
+let timeout = null;
+
 const Covid19Container = () => {
+    const query = useQueryParams();
+    const history = useHistory();
+    const [activeSection, setActiveSection] = useState('overview');
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const overviewRequest = useRef(null);
@@ -61,10 +68,19 @@ const Covid19Container = () => {
         setBannerStickyOnScroll();
     };
 
+    const handleJumpToSection = (section) => {
+        jumpToSection(section);
+        setActiveSection(section);
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
+    };
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            if (timeout) {
+                window.clearTiemout(timeout);
+            }
         };
     }, []);
 
@@ -104,10 +120,21 @@ const Covid19Container = () => {
             }
         };
         if (defCodes.length) {
-            getOverviewData();
-            getAllAwardTypesAmount();
-            overviewRequest.current = null;
-            awardAmountRequest.current = null;
+            Promise.resolve([
+                getOverviewData(),
+                getAllAwardTypesAmount()
+            ])
+                .then(() => {
+                    if (query.section) {
+                        // SUPER BODGE: wait 700ms til the map is drawn
+                        timeout = window.setTimeout(() => {
+                            handleJumpToSection(query.section);
+                            history.push('/disaster/covid-19');
+                        }, 700);
+                    }
+                    overviewRequest.current = null;
+                    awardAmountRequest.current = null;
+                });
         }
         return () => {
             if (overviewRequest.current) {
@@ -128,10 +155,6 @@ const Covid19Container = () => {
         setDataDisclaimerBanner('hide');
     };
 
-    const handleJumpToSection = (section) => {
-        jumpToSection(section);
-        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
-    };
     return (
         <div className="usa-da-covid19-page" ref={dataDisclaimerBannerRef}>
             <MetaTags {...covidPageMetaTags} />
@@ -176,6 +199,7 @@ const Covid19Container = () => {
                                 <Sidebar
                                     pageName="covid19"
                                     isGoingToBeSticky
+                                    active={activeSection}
                                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                                     jumpToSection={handleJumpToSection}
                                     detectActiveSection

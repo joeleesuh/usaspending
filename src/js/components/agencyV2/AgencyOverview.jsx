@@ -37,7 +37,7 @@ const CovidTooltip = ({
             {getText()}
             <Link to={{
                 pathname: "/disaster/covid-19/",
-                search: "?section=sub-agency"
+                search: "?section=award_spending_by_agency"
             }}>
                 {`View this agency's DEFC spending.`}
             </Link>
