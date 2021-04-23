@@ -41,7 +41,7 @@ export const columnTooltips = {
                 If you are viewing the last period in a quarter, you may notice agencies that report quarterly do not show data, or have a later report date than the agencies reporting monthly. This is because the quarterly submission deadline is slightly later than the monthly deadline. Such timing differences will disappear in October 2021 when all agencies transition to monthly reporting.
             </p>
             <p>
-                If you see a &ldquo;Not Certified&rdquo; badge, it means that an agency uploaded data but it is still under review.
+                If you see a &ldquo;--&rdquo; under certified date, it means that the agency uploaded data but it is still under review.
             </p>
         </>
     ),
