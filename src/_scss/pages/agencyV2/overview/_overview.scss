@@ -49,30 +49,33 @@
                     font-size: 1.8rem;
                     width: 100%;
                 }
-                .agency-overview__tooltip {
-                    @include display(flex);
-                    @include justify-content(center);
-                    @include align-items(center);
-                    background: $color-disaster-covid-19;
-                    color: $color-white;
-                    font-size: rem(14);
-                    font-weight: 600;
-                    text-align: center;
-                    height: rem(25);
-                    border-radius: rem(4);
-                    width: rem(132);
-                    margin-left: rem(10);
-                    .tooltip-spacer {
-                        transform: translateX(14px);
-                    }
-                    .tooltip-pointer {
-                        &.left {
-                            left: rem(-16);
-                        }
-                        &.smart-bottom-left {
-                            top: rem(-16);
-                        }
-                    }
+            }
+        }
+    }
+    .agency-overview__tooltip {
+        display: none;
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            background: $color-disaster-covid-19;
+            color: $color-white;
+            font-size: rem(14);
+            font-weight: 600;
+            text-align: center;
+            height: rem(25);
+            border-radius: rem(4);
+            width: rem(132);
+            margin-left: rem(10);
+            .tooltip-spacer {
+                transform: translateX(14px);
+            }
+            .tooltip-pointer {
+                &.left {
+                    left: rem(-16);
+                }
+                &.smart-bottom-left {
+                    top: rem(-16);
                 }
             }
         }
