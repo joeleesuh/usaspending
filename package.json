@@ -11,7 +11,7 @@
     "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
     "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "npx webpack --progress --config ./webpack/webpack.prod.config.js",
-    "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
+    "prod": "npx webpack --progress --config ./webpack/webpack.prod.config.js",
     "travis": "npm audit --audit-level=moderate --production && ./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
     "light-house": "npx webpack --progress --config ./webpack/webpack.prod.config.js && lhci autorun",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js"
@@ -86,6 +86,7 @@
     "clipboard": "^1.6.1",
     "commonmark": "^0.27.0",
     "core-js": "^3.0.1",
+    "css-minimizer-webpack-plugin": "^3.0.0",
     "d3-hierarchy": "^1.1.4",
     "d3-interpolate": "^1.1.4",
     "d3-sankey": "0.7.1",
