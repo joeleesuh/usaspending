@@ -18,7 +18,7 @@ import AwardRecipients from 'components/agencyV2/visualizations/AwardRecipients'
 const propTypes = {
 };
 
-export default AwardRecipientsContainer = ({ }) => {
+export default function AwardRecipientsContainer() {
     // const { fy } = useQueryParams(['fy']);
     // const [loading, setLoading] = useState(true);
     // const [data, setData] = useState([]);
