@@ -12,6 +12,7 @@ import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
+import AwardRecipientsContainer from 'containers/agencyV2/visualizations/AwardRecipientsContainer';
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
 
@@ -112,7 +113,7 @@ const FySummary = ({
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <ComingSoon className="viz-placeholder" />
+                <AwardRecipientsContainer className="viz-placeholder" />
             </VisualizationSection>
         )
     ];
