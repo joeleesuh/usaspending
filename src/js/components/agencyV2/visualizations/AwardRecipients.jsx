@@ -22,15 +22,14 @@ export default function AwardRecipients() {
 
         // whiskers
         ctx.lineWidth = 5;
-        ctx.beginPath();
         ctx.strokeStyle = '#AEB0B6';
+        ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x + chartWidth, 0);
         ctx.moveTo(x, chartHeight);
         ctx.lineTo(x + chartWidth, chartHeight);
         ctx.moveTo(ctx.canvas.width / 2, 0);
         ctx.lineTo(ctx.canvas.width / 2, chartHeight);
-
         ctx.stroke();
 
         // box
