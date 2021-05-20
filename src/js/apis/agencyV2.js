@@ -24,3 +24,16 @@ export const fetchBudgetaryResources = (agencyId) => apiRequest({
 export const fetchAgencyOverview = (code, fy) => apiRequest({
     url: `v2/agency/${code}/${fy ? `?fiscal_year=${fy}` : ''}`
 });
+
+export const fetchRecipientStats = (code, fy) => {
+    // replace with API call once endpoint exists
+    return {
+        "results": [
+            1484593892,
+            723892349,
+            598274389,
+            283479234,
+            -4792034
+        ]
+    }
+};

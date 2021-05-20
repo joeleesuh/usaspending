@@ -20,7 +20,7 @@
         padding: rem(30) 0 rem(22);
         .fy-summary__col {
             @include flex (1 1 25%);
-            width: 25%;
+            max-width: 25%;
             padding: 0 rem(10);
             border-right: solid rem(1) $color-gray-lighter;
             &:first-of-type {
