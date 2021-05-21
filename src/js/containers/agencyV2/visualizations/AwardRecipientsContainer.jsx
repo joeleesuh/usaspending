@@ -20,6 +20,6 @@ const propTypes = {
 
 export default function AwardRecipientsContainer() {
     const data = fetchRecipientStats();
-    return <AwardRecipients data={data.results} />;
+    return <AwardRecipients data={data.results} width="300" height="400" />;
 };
 AwardRecipientsContainer.propTypes = propTypes;

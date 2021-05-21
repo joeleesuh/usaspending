@@ -7,10 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired // exactly 5 award amounts in order: max, 75%, median, 25%, min
+    data: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired, // exactly 5 award amounts in order: max, 75%, median, 25%, min
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
 };
 
-export default function AwardRecipients({ data }) {
+export default function AwardRecipients({ data,width,height }) {
     const canvasRef = React.useRef(null);
 
     React.useEffect(() => {
@@ -44,6 +46,6 @@ export default function AwardRecipients({ data }) {
         ctx.stroke();
     }, []);
 
-    return <canvas ref={canvasRef} width="300" height="400" />;
+    return <canvas ref={canvasRef} width={width} height={height} />;
 };
 AwardRecipients.propTypes = propTypes;
