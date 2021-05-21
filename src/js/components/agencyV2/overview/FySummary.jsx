@@ -17,14 +17,16 @@ import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
 
 const propTypes = {
-    isMobile: PropTypes.bool,
     fy: PropTypes.string,
+    windowWidth: PropTypes.number.isRequired,
+    isMobile: PropTypes.bool,
     agencyId: PropTypes.string
 };
 
 const FySummary = ({
-    isMobile,
     fy,
+    windowWidth,
+    isMobile,
     agencyId
 }) => {
     const dispatch = useDispatch();
@@ -115,7 +117,7 @@ const FySummary = ({
                 data={numberOfRecipients}
                 secondaryData={`${percentOfFederalRecipients} of all federal recipients`}
                 label="Recipient Award Amount Distribution" >
-                <AwardRecipientsContainer className="viz-placeholder" />
+                <AwardRecipientsContainer windowWidth={windowWidth} className="viz-placeholder" />
             </VisualizationSection>
         )
     ];

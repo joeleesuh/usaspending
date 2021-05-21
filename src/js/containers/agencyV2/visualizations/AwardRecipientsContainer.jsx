@@ -16,10 +16,11 @@ import { fetchRecipientStats } from 'apis/agencyV2';
 import AwardRecipients from 'components/agencyV2/visualizations/AwardRecipients';
 
 const propTypes = {
+    windowWidth: PropTypes.number.isRequired
 };
 
-export default function AwardRecipientsContainer() {
+export default function AwardRecipientsContainer({windowWidth}) {
     const data = fetchRecipientStats();
-    return <AwardRecipients data={data.results} width="300" height="400" />;
+    return <AwardRecipients data={data.results} windowWidth={windowWidth} />;
 };
 AwardRecipientsContainer.propTypes = propTypes;

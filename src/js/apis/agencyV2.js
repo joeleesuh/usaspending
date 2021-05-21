@@ -28,12 +28,12 @@ export const fetchAgencyOverview = (code, fy) => apiRequest({
 export const fetchRecipientStats = (code, fy) => {
     // replace with API call once endpoint exists
     return {
-        "results": [
-            1484593892,
-            723892349,
-            598274389,
-            283479234,
-            -4792034
-        ]
+        "results": {
+            'max': 1484593892,
+            '75pct': 723892349,
+            'median': 598274389,
+            '25pct': 283479234,
+            'min': -4792034
+        }
     }
 };

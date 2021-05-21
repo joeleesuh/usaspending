@@ -182,7 +182,7 @@ const AgencyOverview = ({
     return (
         <div className="agency-overview">
             {overview}
-            <FySummary fy={fy} isMobile={windowWidth < mediumScreen} agencyId={agencyId} />
+            <FySummary fy={fy} windowWidth={windowWidth} isMobile={windowWidth < mediumScreen} agencyId={agencyId} />
         </div>
     );
 };
