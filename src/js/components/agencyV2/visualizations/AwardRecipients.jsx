@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import './AwardRecipients.scss';
+
+import { formatTreemapValues } from 'helpers/moneyFormatter';
 
 const propTypes = {
     data: PropTypes.shape({
@@ -26,9 +29,9 @@ export default function AwardRecipients({ data, windowWidth }) {
         const canvas = canvasRef.current;
         canvas.width = chartArea.width;
         canvas.height = chartArea.height;
-        const vizWidth = chartArea.width / 3;
+        const vizWidth = chartArea.width * .3;
         const chartHeight = chartArea.height;
-        const x = vizWidth;
+        const x = (chartArea.width - vizWidth) / 2;
         const ctx = canvas.getContext('2d');
         ctx.lineWidth = 5;
 
@@ -55,8 +58,27 @@ export default function AwardRecipients({ data, windowWidth }) {
         ctx.stroke();
     }, [windowWidth]);
 
-    return <div ref={chartRef} style={{ width: '100%', height: '100%' }}>
+    return <div ref={chartRef} className='recipient-chart'>
         <canvas ref={canvasRef} />
-    </div>;
+        <div className="label max">
+            <div className="title">Max</div>
+            <div>{formatTreemapValues(data['max'])}</div>
+        </div>
+        <div className="label pct75">
+            <div className="title">75th Percentile</div>
+            <div>{formatTreemapValues(data['75pct'])}</div>
+        </div>
+        <div className="label median">
+            <div className="title">Median</div>
+            <div>{formatTreemapValues(data['median'])}</div>
+        </div>
+        <div className="label pct25">
+            <div className="title">25th Percentile</div>
+            <div>{formatTreemapValues(data['25pct'])}</div>
+        </div>
+        <div className="label zero">
+            <div>$0</div>
+        </div>
+    </div >;
 };
 AwardRecipients.propTypes = propTypes;
