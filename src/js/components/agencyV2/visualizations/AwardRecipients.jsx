@@ -16,7 +16,7 @@ const propTypes = {
         'median': PropTypes.number.isRequired,
         '25pct': PropTypes.number.isRequired,
         'min': PropTypes.number.isRequired
-    }),
+    }).isRequired,
     windowWidth: PropTypes.number.isRequired
 };
 
@@ -29,7 +29,7 @@ export default function AwardRecipients({ data, windowWidth }) {
         const canvas = canvasRef.current;
         canvas.width = chartArea.width;
         canvas.height = chartArea.height;
-        const vizWidth = chartArea.width * .3;
+        const vizWidth = chartArea.width * .25;
         const chartHeight = chartArea.height;
         const x = (chartArea.width - vizWidth) / 2;
         const ctx = canvas.getContext('2d');
