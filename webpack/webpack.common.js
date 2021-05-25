@@ -33,7 +33,7 @@ module.exports = {
     resolve: {
         alias: {
             // https://github.com/gaearon/react-hot-loader#hot-loaderreact-dom to support hot loading. Safe in production.
-            'react-dom': '@hot-loader/react-dom'
+            'react-dom': '@hot-loader/react-dom',
         },
         extensions: [".js", ".jsx"],
         modules: [
