@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, formatMoneyWithPrecision, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatLargeValues } from 'helpers/moneyFormatter';
 
 test.each([
     [123.45, '$123'],
@@ -41,4 +41,28 @@ test.each([
     ['', 100, '--']
 ])('calculatePercentage with inputs %s and %s returns %s', (num, denom, rtrn, defaultRtrn = '--', toDecimalPlaces = 1, config = { absoluteMin: '' }) => {
     expect(calculatePercentage(num, denom, defaultRtrn, toDecimalPlaces, config)).toEqual(rtrn);
+});
+
+test.each([
+    [0, '$0'],
+    [1123.45, '$1,123'],
+    [1123.75, '$1,124'],
+    [11123.50, '$11,124'],
+    [12345678, '$12.35 M'],
+    [12345678000, '$12.35 B'],
+    [123456780000000, '$123.46 T']
+])('formatLargeValues: when input is %s --> %s', (input, output) => {
+    expect(formatLargeValues(input)).toEqual(output);
+});
+
+test.each([
+    [0, 5, '$0'],
+    [1123.45, 3, '$1,123'],
+    [1123.75, 1, '$1,124'],
+    [11123.50, 0, '$11,124'],
+    [12345678, 2, '$12.35 M'],
+    [12345678000, 3, '$12.346 B'],
+    [123456780000000, 1, '$123.5 T']
+])('formatLargeValues: when input is %s, %s --> %s', (value, decimals, output) => {
+    expect(formatLargeValues(value, decimals)).toEqual(output);
 });

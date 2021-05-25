@@ -175,6 +175,25 @@ export const calculateUnitForSingleValue = (value) => {
     };
 };
 
+/**
+ * formatLargeValues
+ * @param {number} value
+ * @param {number} decimals
+ * @returns {string} a formatted string representing USD value, rounded to "decimals" places past "significant" value
+ * i.e. 100,015,000 @ decimals = 2 -> "$100.02 B"
+ * NOTE: not tested for negative values yet
+ */
+export const formatLargeValues = (value, decimals = 2) => {
+
+    // only reduce decimal places at a million or higher
+    if (value < 1000000) {
+        return formatMoneyWithPrecision(value, 0);
+    }
+    const units = calculateUnitForSingleValue(value);
+    return `$${(value / units.unit).toFixed(decimals)} ${units.unitLabel}`;
+    // const formattedValue =  Math.round(value / units.unit);
+}
+
 export const formatTreemapValues = (value) => {
     // Format the ceiling and current values to be friendly strings
     const units = calculateUnitForSingleValue(value);

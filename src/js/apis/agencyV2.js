@@ -32,7 +32,7 @@ export const fetchRecipientStats = (code, fy) => {
             'max': 1484593892,
             '75pct': 723892349,
             'median': 598274389,
-            '25pct': 283479234,
+            '25pct': 287234,
             'min': -4792034
         }
     }

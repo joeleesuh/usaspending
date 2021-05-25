@@ -28,12 +28,12 @@ $callout-margin: 3px;
 			left: 0;
 			text-align: right;
 			padding-right: $callout-margin;
-			}
+		}
 
 		.median {
 			right: 0;
 			text-align: left;
-						padding-left: $callout-margin;
+			padding-left: $callout-margin;
 		}
 
 		.pct25 {
@@ -43,9 +43,9 @@ $callout-margin: 3px;
 		}
 
 		.zero {
-			left: 0;
-			text-align: right;
-			padding-right: $callout-margin;
+			right: 0;
+			text-align: left;
+			padding-left: $callout-margin;
 		}
 	}
 }

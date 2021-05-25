@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './AwardRecipients.scss';
 
-import { formatTreemapValues } from 'helpers/moneyFormatter';
+import { formatLargeValues } from 'helpers/moneyFormatter';
 
 const propTypes = {
     data: PropTypes.shape({
@@ -39,8 +39,8 @@ export default function AwardRecipients({ data, windowWidth }) {
         const ctx = canvas.getContext('2d');
 
         // whiskers
-        ctx.strokeStyle = '#aeB0B6';
-        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#aeB0B5';
+        ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x + vizWidth, 0);
@@ -81,7 +81,7 @@ export default function AwardRecipients({ data, windowWidth }) {
         // callout lines
         const calloutMargin = 3;
         ctx.strokeStyle = '#aeB0B6';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(x + vizWidth + calloutMargin, 0);
         ctx.lineTo(chartArea.width, 0);
@@ -91,8 +91,8 @@ export default function AwardRecipients({ data, windowWidth }) {
         ctx.lineTo(chartArea.width, medianY);
         ctx.moveTo(0, boxBottom);
         ctx.lineTo(x - calloutMargin, boxBottom);
-        ctx.moveTo(0, chartHeight);
-        ctx.lineTo(x - calloutMargin, chartHeight);
+        ctx.moveTo(x + vizWidth + calloutMargin, chartHeight);
+        ctx.lineTo(chartArea.width, chartHeight);
         ctx.stroke();
 
     }, [windowWidth]);
@@ -101,19 +101,19 @@ export default function AwardRecipients({ data, windowWidth }) {
         <canvas ref={canvasRef} />
         <div className="label max">
             <div className="title">Max</div>
-            <div>{formatTreemapValues(data['max'])}</div>
+            <div>{formatLargeValues(data['max'])}</div>
         </div>
         <div ref={pct75Ref} className="label pct75">
             <div className="title">75th Percentile</div>
-            <div>{formatTreemapValues(data['75pct'])}</div>
+            <div>{formatLargeValues(data['75pct'])}</div>
         </div>
         <div ref={medianRef} className="label median">
             <div className="title">Median</div>
-            <div>{formatTreemapValues(data['median'])}</div>
+            <div>{formatLargeValues(data['median'])}</div>
         </div>
         <div ref={pct25Ref} className="label pct25">
             <div className="title">25th Percentile</div>
-            <div>{formatTreemapValues(data['25pct'])}</div>
+            <div>{formatLargeValues(data['25pct'])}</div>
         </div>
         <div ref={zeroRef} className="label zero">
             <div>$0</div>
