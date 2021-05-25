@@ -23,6 +23,10 @@ const propTypes = {
 export default function AwardRecipients({ data, windowWidth }) {
     const chartRef = React.useRef(null);
     const canvasRef = React.useRef(null);
+    const pct75Ref = React.useRef(null);
+    const medianRef = React.useRef(null);
+    const pct25Ref = React.useRef(null);
+    const zeroRef = React.useRef(null);
 
     React.useEffect(() => {
         const chartArea = chartRef.current.getBoundingClientRect();
@@ -33,10 +37,10 @@ export default function AwardRecipients({ data, windowWidth }) {
         const chartHeight = chartArea.height;
         const x = (chartArea.width - vizWidth) / 2;
         const ctx = canvas.getContext('2d');
-        ctx.lineWidth = 5;
 
         // whiskers
         ctx.strokeStyle = '#aeB0B6';
+        ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x + vizWidth, 0);
@@ -47,15 +51,50 @@ export default function AwardRecipients({ data, windowWidth }) {
         ctx.stroke();
 
         // box
+        const boxTop = chartHeight * (1 - data['75pct'] / data['max']);
+        const boxHeight = chartHeight * (data['75pct'] - data['25pct']) / data['max'];
+        const boxBottom = boxTop + boxHeight;
         ctx.fillStyle = '#88b4c0';
-        ctx.fillRect(x, chartHeight * (1 - data['75pct'] / data['max']), vizWidth, chartHeight * (data['75pct'] - data['25pct']) / data['max']);
+        ctx.fillRect(x, boxTop, vizWidth, boxHeight);
 
         // median
+        const medianY = chartHeight * (1 - data['median'] / data['max']);
         ctx.strokeStyle = '#f1f1f1';
         ctx.beginPath();
-        ctx.moveTo(x, chartHeight * (1 - data['median'] / data['max']));
-        ctx.lineTo(x + vizWidth, chartHeight * (1 - data['median'] / data['max']));
+        ctx.moveTo(x, medianY);
+        ctx.lineTo(x + vizWidth, medianY);
         ctx.stroke();
+
+        // position labels
+        const pct75Label = pct75Ref.current;
+        pct75Label.style.top = `calc(${boxTop}px - 2.5rem)`;
+
+        const medianLabel = medianRef.current;
+        medianLabel.style.top = `calc(${medianY}px - 1.5rem)`;
+
+        const pct25Label = pct25Ref.current;
+        pct25Label.style.top = `calc(${boxBottom}px - 2.5rem)`;
+
+        const zeroLabel = zeroRef.current;
+        zeroLabel.style.bottom = 0;
+
+        // callout lines
+        const calloutMargin = 3;
+        ctx.strokeStyle = '#aeB0B6';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x + vizWidth + calloutMargin, 0);
+        ctx.lineTo(chartArea.width, 0);
+        ctx.moveTo(0, boxTop);
+        ctx.lineTo(x - calloutMargin, boxTop);
+        ctx.moveTo(x + vizWidth + calloutMargin, medianY);
+        ctx.lineTo(chartArea.width, medianY);
+        ctx.moveTo(0, boxBottom);
+        ctx.lineTo(x - calloutMargin, boxBottom);
+        ctx.moveTo(0, chartHeight);
+        ctx.lineTo(x - calloutMargin, chartHeight);
+        ctx.stroke();
+
     }, [windowWidth]);
 
     return <div ref={chartRef} className='recipient-chart'>
@@ -64,19 +103,19 @@ export default function AwardRecipients({ data, windowWidth }) {
             <div className="title">Max</div>
             <div>{formatTreemapValues(data['max'])}</div>
         </div>
-        <div className="label pct75">
+        <div ref={pct75Ref} className="label pct75">
             <div className="title">75th Percentile</div>
             <div>{formatTreemapValues(data['75pct'])}</div>
         </div>
-        <div className="label median">
+        <div ref={medianRef} className="label median">
             <div className="title">Median</div>
             <div>{formatTreemapValues(data['median'])}</div>
         </div>
-        <div className="label pct25">
+        <div ref={pct25Ref} className="label pct25">
             <div className="title">25th Percentile</div>
             <div>{formatTreemapValues(data['25pct'])}</div>
         </div>
-        <div className="label zero">
+        <div ref={zeroRef} className="label zero">
             <div>$0</div>
         </div>
     </div >;

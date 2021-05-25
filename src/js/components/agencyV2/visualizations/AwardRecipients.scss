@@ -1,3 +1,5 @@
+$callout-margin: 3px;
+
 .visualization-section__viz-wrapper {
 	.recipient-chart {
 		width: 100%;
@@ -8,6 +10,7 @@
 			position: absolute;
 			width: 30%;
 			font-size: 1rem;
+			background-color: white;
 
 			.title {
 				font-weight: bold;
@@ -15,33 +18,34 @@
 		}
 
 		.max {
-			top: 0;
+			top: -1.5rem;
 			right: 0;
 			text-align: left;
+			padding-left: $callout-margin;
 		}
 
 		.pct75 {
-			top: 25%;
 			left: 0;
 			text-align: right;
-		}
+			padding-right: $callout-margin;
+			}
 
 		.median {
-			top: 50%;
 			right: 0;
 			text-align: left;
+						padding-left: $callout-margin;
 		}
 
 		.pct25 {
-			bottom: 25%;
 			left: 0;
 			text-align: right;
+			padding-right: $callout-margin;
 		}
 
 		.zero {
-			bottom: 100;
 			left: 0;
 			text-align: right;
+			padding-right: $callout-margin;
 		}
 	}
 }
