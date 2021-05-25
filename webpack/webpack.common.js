@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin').GitRevisionPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
@@ -15,19 +16,36 @@ console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
 module.exports = {
-    entry: {
-        app: "./index.js"
-    },
+    context: path.resolve(__dirname, "../src"),
+    entry: [
+        'core-js/modules/es.promise',
+        'core-js/modules/es.array.iterator',
+        'react-hot-loader/patch',
+        path.resolve(__dirname, '../src/index.js')
+    ],
+    target: ['web', 'es5'],
     output: {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "../public")
     },
-    context: path.resolve(__dirname, "../src"),
     resolve: {
+        alias: {
+            // https://github.com/gaearon/react-hot-loader#hot-loaderreact-dom to support hot loading. Safe in production.
+            'react-dom': '@hot-loader/react-dom'
+        },
         extensions: [".js", ".jsx"],
-        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
+        modules: [
+            "node_modules",
+            path.resolve(__dirname, "../src/_scss"),
+            path.resolve(__dirname, "../src/js"),
+            path.resolve(__dirname, "../src/img"),
+            path.resolve(__dirname, "../src/fonts"),
+            path.resolve(__dirname, "../src/data"),
+            path.resolve(__dirname, "../src/graphics"),
+            path.resolve(__dirname, "../src")
+        ],
         fallback: {
             buffer: require.resolve('buffer'),
             stream: require.resolve('stream-browserify')
@@ -124,6 +142,7 @@ module.exports = {
                     ? JSON.stringify(process.env.ENV)
                     : JSON.stringify('dev')
             }
-        })
+        }),
+        new BundleAnalyzer()
     ]
 };
