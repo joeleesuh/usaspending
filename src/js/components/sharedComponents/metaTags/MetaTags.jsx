@@ -125,4 +125,8 @@ const MetaTags = ({
 MetaTags.propTypes = propTypes;
 MetaTags.defaultProps = defaultProps;
 
+// Force default defer to `false` until Helmet works out a bug on IE11
+// See: https://github.com/nfl/react-helmet/issues/336; (this is closed but it doesn't work w/o this 🤷‍♂️)
+Helmet.defaultProps.defer = false;
+
 export default MetaTags;
