@@ -16,7 +16,6 @@ console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
 module.exports = {
-    context: path.resolve(__dirname, "../src"),
     entry: [
         'core-js/modules/es.promise',
         'core-js/modules/es.array.iterator',
@@ -30,6 +29,7 @@ module.exports = {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "../public")
     },
+    context: path.resolve(__dirname, "../src"),
     resolve: {
         alias: {
             // https://github.com/gaearon/react-hot-loader#hot-loaderreact-dom to support hot loading. Safe in production.
@@ -38,13 +38,7 @@ module.exports = {
         extensions: [".js", ".jsx"],
         modules: [
             "node_modules",
-            path.resolve(__dirname, "../src/_scss"),
-            path.resolve(__dirname, "../src/js"),
-            path.resolve(__dirname, "../src/img"),
-            path.resolve(__dirname, "../src/fonts"),
-            path.resolve(__dirname, "../src/data"),
-            path.resolve(__dirname, "../src/graphics"),
-            path.resolve(__dirname, "../src")
+            path.resolve(__dirname, "../src/_scss")
         ],
         fallback: {
             buffer: require.resolve('buffer'),

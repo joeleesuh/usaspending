@@ -17,7 +17,6 @@ import {
     rectangleMapping,
     startOfChartY,
     rectangleHeight,
-    remaniningBalanceLineWidth,
     lineStrokeWidth,
     heightOfRemainingBalanceLines,
     remainingBalanceLineWidth,
