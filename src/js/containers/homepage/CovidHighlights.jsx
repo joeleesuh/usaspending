@@ -309,6 +309,9 @@ export class CovidHighlights extends React.Component {
                         </h1>
                         <p>
                             USAspending is the official open data source of federal spending information. We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.
+                            <div className="vaccine-info">
+                                We can do this. Find COVID-19 vaccines near you. Visit <a href="https://www.vaccines.gov/" target="_blank" rel="noopener noreferrer">Vaccines.gov</a>
+                            </div>
                         </p>
                     </div>
                     <div
@@ -327,7 +330,7 @@ export class CovidHighlights extends React.Component {
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
                                         return (
-                                            <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
+                                            <li key={uniqueId('loading')} className="covid-highlights__highlight loading">
                                                 <FontAwesomeIcon icon="spinner" spin color="white" />
                                             </li>
                                         );
@@ -354,7 +357,7 @@ export class CovidHighlights extends React.Component {
                         }} />
                     <HeroButton />
                 </div>
-            </section>
+            </section >
         );
     }
 }

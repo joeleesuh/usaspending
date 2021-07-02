@@ -229,6 +229,11 @@ $dot-color: #dcefef;
                     }
                 }
             }
+            .vaccine-info {
+              font-size: rem(20);
+              font-weight: $font-bold;
+              margin-top: 1rem;
+            }
         }
         .covid-background {
           background: url('../../../../img/header-img-people-384x486@2x.png');
