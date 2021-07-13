@@ -25,7 +25,7 @@ const Homepage = () => (
         <MetaTags {...MetaTagHelper.homePageMetaTags} />
         <Header />
         <main id="main-content" className="homepage-content">
-            <div>:wave:</div>
+            <div>:wave-jon:</div>
             <CovidVaccineLink />
             <CovidHighlights />
             <Features />
